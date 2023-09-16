@@ -21,47 +21,58 @@ const reactAnchor = {
         id: "googleLink",
         href: "https://google.com",
         target: "_blank",
-        style: "display:block"
+        style: "display:block; margin:10px"
     },
     children: "Click this link to visit google"
 }
 renderElement(reactAnchor, container)
 
-renderElement({type:"br"}, container)
-
-// custom React Element as an object to make a Button Tag
-const reactBtn = {
-    type: "button",
-    props:{
-        id: "countBtn",
-        style: "display:block"
-    },
-    children: "Click this to increase count"
-}
-renderElement(reactBtn, container)
+// renderElement({type:"br"}, container)
 
 // custom React Element as an object to make a Counter Div to display current count
 let count = 0
 const reactCount = {
     type: "div",
     props:{
-        id: "countDiv"
+        id: "countDiv",
+        style: "margin:10px; margin-left:20px"
     },
     children: `${count}`
 }
 renderElement(reactCount, container)
 
-// custom implementation of useState Hook in react to re-render the current count
-const increaseCounter = (curCount) => {
-    const oldCount = document.querySelector("#countDiv")
-    const updatedCount = document.createElement("div")
-    
-    updatedCount.setAttribute("id", "countDiv")
+// custom React Element as an object to make a Button Tag
+const reactIncBtn = {
+    type: "button",
+    props:{
+        id: "countIncBtn",
+        style: "display:block; margin:10px; text-align:center"
+    },
+    children: "Click this to increase count"
+}
+renderElement(reactIncBtn, container)
 
-    updatedCount.innerText = `${count = curCount + 1}`
+// custom React Element as an object to make a Button Tag
+const reactDecBtn = {
+    type: "button",
+    props:{
+        id: "countDecBtn",
+        style: "display:block; margin:10px; text-align:center"
+    },
+    children: "Click this to decrease count"
+}
+renderElement(reactDecBtn, container)
+
+// custom implementation of useState Hook in react to re-render the current count
+const updateCounter = (newCount) => {
+    const oldCount = document.querySelector("#countDiv")
+    const updatedCount = oldCount
+    
+    updatedCount.innerText = `${newCount}`
     
     container.replaceChild(updatedCount, oldCount)
 }
 
-document.querySelector("#countBtn").addEventListener('click',() => {increaseCounter(count)})
+document.querySelector("#countIncBtn").addEventListener('click',() => {updateCounter(count += 1)})
+document.querySelector("#countDecBtn").addEventListener('click',() => {updateCounter(count -= 1)})
 
